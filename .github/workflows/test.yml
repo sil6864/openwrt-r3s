@@ -16,6 +16,13 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y build-essential ccache libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev unzip gawk
 
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+
     - name: Clone OpenWrt source code
       working-directory: /workdir
       run: |
