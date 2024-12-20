@@ -31,7 +31,9 @@ jobs:
     - name: Copy .vermagic file to the OpenWrt build directory
       working-directory: /workdir/openwrt
       run: |
-        cp /workdir/.vermagic $(TOPDIR)/.vermagic
+        cp .vermagic $(TOPDIR)/.vermagic
+        ls > 1.txt
+        cat 1.txt
 
     - name: Modify include/kernel-defaults.mk
       working-directory: /workdir/openwrt
