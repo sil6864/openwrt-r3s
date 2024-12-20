@@ -37,6 +37,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
 
+    - name: Free disk space
+      uses: jlumbroso/free-disk-space@main
+      with:
+        tool-cache: false
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -99,6 +110,11 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+
+    - name: Check space usage
+      run: |
+        cd openwrt
+        df -hT
 
     - name: Compile the firmware
       id: compile
