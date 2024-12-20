@@ -11,11 +11,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up OpenWrt build environment
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential ccache libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev unzip gawk
-
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -31,7 +26,7 @@ jobs:
     - name: Copy .vermagic file to the OpenWrt build directory
       working-directory: /workdir/openwrt
       run: |
-        cp .vermagic $(TOPDIR)/.vermagic
+        cp $GITHUB_WORKSPACE/.vermagic /workdir/openwrt/.vermagic
         ls > 1.txt
         cat 1.txt
 
