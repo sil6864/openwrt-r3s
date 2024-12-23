@@ -75,8 +75,14 @@ jobs:
         cp $GITHUB_WORKSPACE/.vermagic /workdir/openwrt/.vermagic
         # 修改 include/kernel-defaults.mk 文件
         sed -i -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' include/kernel-defaults.mk
-        cat include/kernel-defaults.mk
-        cat /workdir/openwrt/.vermagic
+        cp -r $GITHUB_WORKSPACE/files /workdir/openwrt/
+        ls /home/runner/work/openwrt-r3s
+        echo -------
+        ls /home/runner/work/openwrt-r3s/openwrt-r3s
+        echo -------
+        ls /home/runner/work/openwrt-r3s/openwrt-r3s/files
+        echo -------
+        cat /workdir/openwrt/files/etc/opkg/distfeeds.conf
 
     - name: Load custom feeds
       run: |
@@ -101,7 +107,6 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        cp -r $GITHUB_WORKSPACE/files /workdir/openwrt/
 
     - name: Download package
       id: package
