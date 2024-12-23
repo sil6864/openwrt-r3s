@@ -101,8 +101,7 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        cp -r $GITHUB_WORKSPACE/file /workdir/openwrt/
-        cat /workdir/openwrt/files/etc/opkg/distfeeds.conf
+        cp -r $GITHUB_WORKSPACE/files /workdir/openwrt/
 
     - name: Download package
       id: package
