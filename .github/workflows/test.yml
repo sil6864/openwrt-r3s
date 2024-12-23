@@ -39,7 +39,6 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
@@ -57,7 +56,6 @@ jobs:
         cp $GITHUB_WORKSPACE/.vermagic /workdir/openwrt/.vermagic
         # 修改 include/kernel-defaults.mk 文件
         sed -i -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' include/kernel-defaults.mk
-        cat include/kernel-defaults.mk
         cat /workdir/openwrt/.vermagic
-        cp -r $GITHUB_WORKSPACE/file /workdir/openwrt/
+        cp -r $GITHUB_WORKSPACE/files /workdir/openwrt/
         cat /workdir/openwrt/files/etc/opkg/distfeeds.conf
