@@ -58,4 +58,7 @@ jobs:
         sed -i -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' include/kernel-defaults.mk
         cat /workdir/openwrt/.vermagic
         cp -r $GITHUB_WORKSPACE/files /workdir/openwrt/
+        ls /home/runner/work/openwrt-r3s
+        ls /home/runner/work/openwrt-r3s/openwrt-r3s
+        ls /home/runner/work/openwrt-r3s/openwrt-r3s/files
         cat /workdir/openwrt/files/etc/opkg/distfeeds.conf
