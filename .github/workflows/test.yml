@@ -59,6 +59,9 @@ jobs:
         cat /workdir/openwrt/.vermagic
         cp -r $GITHUB_WORKSPACE/files /workdir/openwrt/
         ls /home/runner/work/openwrt-r3s
+        echo -------
         ls /home/runner/work/openwrt-r3s/openwrt-r3s
+        echo -------
         ls /home/runner/work/openwrt-r3s/openwrt-r3s/files
+        echo -------
         cat /workdir/openwrt/files/etc/opkg/distfeeds.conf
