@@ -112,8 +112,7 @@ jobs:
       run: |
         cd openwrt
         cp -r $GITHUB_WORKSPACE/devices/common/patches /workdir/openwrt/
-        cp -r $GITHUB_WORKSPACE/devices/common/diy/package/network/config/firewall4/files /workdir/openwrt/package/network/config/firewall4
-        cp -r $GITHUB_WORKSPACE/devices/common/diy/package/network/config/firewall/files /workdir/openwrt/package/network/config/firewall
+        cp -Rf $GITHUB_WORKSPACE/devices/common/diy/* ./ || true
         echo ------------------------
         ls /workdir/openwrt/patches
         echo ------------------------
