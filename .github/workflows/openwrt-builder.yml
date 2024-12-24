@@ -112,11 +112,14 @@ jobs:
       run: |
         cd openwrt
         cp -r $GITHUB_WORKSPACE/devices/common/patches /workdir/openwrt/
-        cp -r $GITHUB_WORKSPACE/devices/common/diy/package/network/config/firewall4/files /workdir/openwrt/
+        cp -r $GITHUB_WORKSPACE/devices/common/diy/package/network/config/firewall4/files /workdir/openwrt/package/network/config/firewall4
+        cp -r $GITHUB_WORKSPACE/devices/common/diy/package/network/config/firewall/files /workdir/openwrt/package/network/config/firewall
         echo ------------------------
         ls /workdir/openwrt/patches
         echo ------------------------
-        ls /workdir/openwrt/files
+        ls /workdir/openwrt/package/network/config/firewall4/files
+        echo ------------------------
+        ls /workdir/openwrt/package/network/config/firewall/files
         echo ------------------------
         find "patches" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 --forward"
 
