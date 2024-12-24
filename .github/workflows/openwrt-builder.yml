@@ -108,19 +108,19 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    - name: Apply patches
-      run: |
-        cd openwrt
-        cp -r $GITHUB_WORKSPACE/devices/common/patches /workdir/openwrt/
-        cp -Rf $GITHUB_WORKSPACE/devices/common/diy/* ./ || true
-        echo ------------------------
-        ls /workdir/openwrt/patches
-        echo ------------------------
-        ls /workdir/openwrt/package/network/config/firewall4/files
-        echo ------------------------
-        ls /workdir/openwrt/package/network/config/firewall/files
-        echo ------------------------
-        find "patches" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 --forward"
+    #- name: Apply patches
+    #  run: |
+    #    cd openwrt
+    #    cp -r $GITHUB_WORKSPACE/devices/common/patches /workdir/openwrt/
+    #    cp -Rf $GITHUB_WORKSPACE/devices/common/diy/* ./ || true
+    #    echo ------------------------
+    #    ls /workdir/openwrt/patches
+    #    echo ------------------------
+    #    ls /workdir/openwrt/package/network/config/firewall4/files
+    #    echo ------------------------
+    #    ls /workdir/openwrt/package/network/config/firewall/files
+    #    echo ------------------------
+    #    find "patches" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 --forward"
 
     - name: Download package
       id: package
