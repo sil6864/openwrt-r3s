@@ -69,20 +69,10 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: Modify include/kernel-defaults.mk
+    - name: Copy file
       working-directory: /workdir/openwrt
       run: |
-        cp $GITHUB_WORKSPACE/.vermagic /workdir/openwrt/.vermagic
-        # 修改 include/kernel-defaults.mk 文件
-        sed -i -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' include/kernel-defaults.mk
         cp -r $GITHUB_WORKSPACE/files /workdir/openwrt/
-        ls /home/runner/work/openwrt-r3s
-        echo -------
-        ls /home/runner/work/openwrt-r3s/openwrt-r3s
-        echo -------
-        ls /home/runner/work/openwrt-r3s/openwrt-r3s/files
-        echo -------
-        cat /workdir/openwrt/files/etc/opkg/distfeeds.conf
 
     - name: Load custom feeds
       run: |
@@ -97,9 +87,6 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: delete feeds
-      run: cd openwrt && rm -rf ./feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb}
-
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
@@ -113,13 +100,6 @@ jobs:
         cd openwrt
         cp -r $GITHUB_WORKSPACE/devices/common/patches /workdir/openwrt/
         cp -Rf $GITHUB_WORKSPACE/devices/common/diy/* ./ || true
-        echo ------------------------
-        ls /workdir/openwrt/patches
-        #echo ------------------------
-        #ls /workdir/openwrt/package/network/config/firewall4/files
-        #echo ------------------------
-        #ls /workdir/openwrt/package/network/config/firewall/files
-        echo ------------------------
         find "patches" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 --forward"
 
     - name: Download package
