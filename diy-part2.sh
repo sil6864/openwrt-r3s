@@ -27,3 +27,11 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 #sed -i "/mediaurlbase/d" package/feeds/*/luci-theme*/root/etc/uci-defaults/*
 
 sed -i "s/^.*vermagic$/\techo '1' > \$(LINUX_DIR)\/.vermagic/" include/kernel-defaults.mk
+
+if [ -d "feeds/luci/applications/luci-app-dockerman" ]; then
+    rm -rf feeds/luci/applications/luci-app-dockerman
+fi
+# 判断并移动 feeds/kiddin9/luci-app-dockerman
+if [ -d "feeds/kiddin9/luci-app-dockerman" ]; then
+    cp -rf feeds/kiddin9/luci-app-dockerman feeds/luci/applications/
+fi
