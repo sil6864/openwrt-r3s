@@ -63,5 +63,5 @@ jobs:
       continue-on-error: true
       if: env.SCKEY
       run: |
-        [ steps.compile.outputs.status == 'success' ] && curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt_${{ env.VERSION }}_${{matrix.target}}compile success|| curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt_${{ env.VERSION }}_${{matrix.target}}complie fail
+        [ steps.compile.outputs.status == 'success' ] && curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt_${{ env.VERSION }}_${{matrix.target}}compile_success|| curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt_${{ env.VERSION }}_${{matrix.target}}complie_fail
 
