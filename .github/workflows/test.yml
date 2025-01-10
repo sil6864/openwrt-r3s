@@ -19,6 +19,7 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: v24.10.0-rc2
   FEEDS_CONF: feeds.conf.default
+  SCKEY: ${{ secrets.SCKEY }}
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
@@ -76,3 +77,10 @@ jobs:
         echo ------------------------
         ls /workdir/openwrt/files
         echo ------------------------
+
+    - name: WeChat notification
+      continue-on-error: true
+      if: env.SCKEY
+      run: |
+        # [ steps.compile.outputs.status == 'success' ] && curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉OpenWrt_${{ env.VERSION }}_${{matrix.target}}编译完成😋|| curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=❌OpenWrt_${{ env.VERSION }}_${{matrix.target}}编译失败😂
+
