@@ -50,22 +50,6 @@ jobs:
         df -hT $PWD
         mkdir openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-
-    - name: Modify include/kernel-defaults.mk
-      working-directory: /workdir/openwrt
-      run: |
-        cp $GITHUB_WORKSPACE/.vermagic /workdir/openwrt/.vermagic
-        # 修改 include/kernel-defaults.mk 文件
-        sed -i -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' include/kernel-defaults.mk
-        cat /workdir/openwrt/.vermagic
-        cp -r $GITHUB_WORKSPACE/files /workdir/openwrt/
-        ls /home/runner/work/openwrt-r3s
-        echo -------
-        ls /home/runner/work/openwrt-r3s/openwrt-r3s
-        echo -------
-        ls /home/runner/work/openwrt-r3s/openwrt-r3s/files
-        echo -------
-        cat /workdir/openwrt/files/etc/opkg/distfeeds.conf
         
     - name: Apply patches
       run: |
