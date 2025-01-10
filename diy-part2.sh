@@ -35,3 +35,4 @@ fi
 if [ -d "feeds/kiddin9/luci-app-dockerman" ]; then
     cp -rf feeds/kiddin9/luci-app-dockerman feeds/luci/applications/
 fi
+
