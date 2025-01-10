@@ -21,6 +21,7 @@ env:
   # REPO_BRANCH: openwrt-24.10
   REPO_BRANCH: v24.10.0-rc2
   FEEDS_CONF: feeds.conf.default
+  SCKEY: ${{ secrets.SCKEY }}
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
@@ -177,7 +178,7 @@ jobs:
       continue-on-error: true
       if: env.SCKEY
       run: |
-        # [ steps.compile.outputs.status == 'success' ] && curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉OpenWrt_${{ env.VERSION }}_${{matrix.target}}编译完成😋|| curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=❌OpenWrt_${{ env.VERSION }}_${{matrix.target}}编译失败😂
+        [ steps.compile.outputs.status == 'success' ] && curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt_${{ env.VERSION }}_${{matrix.target}}compile_success_$(date '+%Y-%m-%d~%H:%M:%S')|| curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt_${{ env.VERSION }}_${{matrix.target}}complie_fail_$(date '+%Y-%m-%d~%H:%M:%S')
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@main
