@@ -58,8 +58,6 @@ jobs:
         echo ------------------------
         ls /workdir/openwrt/patches
         echo ------------------------
-        ls /workdir/openwrt/files
-        echo ------------------------
 
     - name: WeChat notification
       continue-on-error: true
