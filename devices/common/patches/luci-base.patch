@@ -1,6 +1,6 @@
 --- a/package/feeds/luci/luci-base/root/usr/share/rpcd/ucode/luci
 +++ b/package/feeds/luci/luci-base/root/usr/share/rpcd/ucode/luci
-@@ -192,11 +192,13 @@ const methods = {
+@@ -192,6 +192,7 @@ const methods = {
  
  	getFeatures: {
  		call: function() {
@@ -8,7 +8,9 @@
  			let result = {
  				firewall:   access('/sbin/fw3') == true,
  				firewall4:  access('/sbin/fw4') == true,
- 				opkg:       access('/bin/opkg') == true,
+@@ -199,6 +200,7 @@ const methods = {
+ 				bonding:    access('/sys/module/bonding'),
+ 				mii_tool:   access('/usr/sbin/mii-tool'),
  				offloading: access('/sys/module/xt_FLOWOFFLOAD/refcnt') == true || access('/sys/module/nft_flow_offload/refcnt') == true,
 +				fullcone:   access(`/lib/modules/${kernel_version}/xt_FULLCONENAT.ko`) == true || access(`/lib/modules/${kernel_version}/nft_fullcone.ko`) == true,
  				br2684ctl:  access('/usr/sbin/br2684ctl') == true,
@@ -156,22 +158,6 @@
  	</body>
  </html>
 
---- a/package/feeds/luci/luci-base/htdocs/luci-static/resources/ui.js
-+++ b/package/feeds/luci/luci-base/htdocs/luci-static/resources/ui.js
-@@ -3129,12 +3129,6 @@ var UIMenu = baseclass.singleton(/** @lends LuCI.ui.menu.prototype */ {
- 
- 				for (var i = 0; root != null && i < path.length; i++)
- 					root = L.isObject(root.children) ? root.children[path[i]] : null;
--
--				if (root)
--					subnode = Object.assign({}, subnode, {
--						children: root.children,
--						action: root.action
--					});
- 			}
- 
- 			children.push(subnode);
-
 --- a/package/feeds/luci/luci-base/root/etc/init.d/ucitrack
 +++ b/package/feeds/luci/luci-base/root/etc/init.d/ucitrack
 @@ -8,7 +8,7 @@ register_init() {
@@ -179,7 +165,7 @@
  	shift; shift
  
 -	if [ -x "$init" ] && "$init" enabled && ! grep -sqE 'USE_PROCD=.' "$init"; then
-+	if [ -x "$init" ] && "$init" enabled && ! grep -sq 'procd_add_reload_trigger' "$init"; then
++	if [ -x "$init" ] && ! grep -sqE 'USE_PROCD=.' "$init"; then
  		logger -t "ucitrack" "Setting up /etc/config/$config reload trigger for non-procd $init"
  		procd_add_config_trigger "config.change" "$config" "$init" "$@"
  	fi
